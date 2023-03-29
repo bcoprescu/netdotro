@@ -6,15 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - netdotro</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css//bootstrap-icons.css">
     <link rel="stylesheet" href="~/css/bootstrap.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/netdotro.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @* <link rel="stylesheet" href="~/netdotro.styles.css" asp-append-version="true" /> *@
 </head>
 
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
-                <a href="/"><img src="~/images/logo.png" alt="Logo" style="width: 140px; height: auto;"/></a>
+                <a href="/"><img src="~/images/logo4.png" alt="Logo" style="width: 100px; height: auto;" /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03"
                     aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -26,9 +28,16 @@
                                 <a class="nav-link active" asp-area="" asp-page="/Index">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-page="/Privacy">Privacy</a>
+                                <a class="nav-link" asp-area="" asp-page="/Games/Games">Games</a>
                             </li>
                         </ul>
+                    </ul>
+                    <ul class="navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a target="_blank" rel="noopener" class="nav-link" href="https://github.com/bcoprescu">
+                            <i class="bi bi-github"></i> GitHub</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -39,9 +48,25 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="footer">
+
         <div class="container">
-            &copy; 2023 - netdotro - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        <hr>
+        <div class="col-lg-12">
+
+            <ul class="list-unstyled">
+                <li class="float-end"><a href="#top"><i class="bi bi-arrow-up"></i>Back to top</a></li>
+                <li><a href="/"><i class="bi bi-clipboard"></i>Blog</a></li>
+                @* <li><a href="/">RSS</a></li> *@
+                <li><a href="/"><i class="bi bi-twitter"></i>Twitter</a></li>
+                <li><a href="https://github.com/bcoprescu"><i class="bi bi-github"></i>GitHub</a></li>
+                @* <li><a href="/">Donate</a></li> *@
+            </ul>
+            <p>Made by <a href="/">Bogdan Oprescu</a>.</p>
+            <p>Code released under the <a href="https://github.com/bcoprescu/netdotro/LICENSE">MIT License</a>.</p>
+            <p>Icons from <a href="https://icons.getbootstrap.com/" rel="nofollow">Bootstrap Icons</a>. Web theme
+                from <a href="https://bootswatch.com/lumen/" rel="nofollow">Bootswatch</a>.</p>
+        </div>
         </div>
     </footer>
 

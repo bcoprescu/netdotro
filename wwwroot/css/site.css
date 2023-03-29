@@ -20,3 +20,26 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+footer {
+  margin: 5em 0
+}
+
+footer li {
+  float: left;
+  margin-right: 1.5em;
+  margin-bottom: 1.5em
+}
+
+footer p {
+  margin-bottom: 0;
+  clear: left
+}
+
+.float-start {
+  float: left !important;
+}
+
+.float-end {
+  float: right !important;
+}
