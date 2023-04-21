@@ -1,0 +1,95 @@
+﻿@page
+@model RegisterModel
+@using Microsoft.AspNetCore.Antiforgery
+@inject IAntiforgery antiforgery
+@{
+    ViewData["Title"] = "Register";
+    var token = antiforgery.GetAndStoreTokens(HttpContext).RequestToken;
+}
+    
+@* <h1>@ViewData["Title"] </h1> *@
+<br>
+<form id="registerForm" method="post" action="Register" novalidate="novalidate" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Create an account to see your picture in the navigation bar.</h2>
+            <hr>
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            <div class="form-floating mb-3">
+                <input class="form-control" autocomplete="FirstName" aria-required="true" placeholder="John" type="name" data-val="false" id="Input_FirstName" name="Input.FirstName" value="">
+                <label for="Input_FirstName">First Name</label>
+                <span class="text-danger field-validation-valid" data-valmsg-for="Input.FirstName" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input class="form-control" autocomplete="LastName" aria-required="true" placeholder="Doe" type="name" data-val="false" id="Input_LastName" name="Input.LastName" value="">
+                <label for="Input_LastName">Last Name</label>
+                <span class="text-danger field-validation-valid" data-valmsg-for="Input.LastName" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                <label asp-for="Input.Email">Email</label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                <label asp-for="Input.Password">Password</label>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-6 col-md-offset-2">
+            <center>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group center">
+                    @* <label asp-for="Input.ProfilePicture" style="width: 100%;"></label> *@
+                    @if (Model.Input.ProfilePicture != null)
+                    {
+                        <img id="profilePicture" style="width:350px;height:350px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.Input.ProfilePicture))">
+                    }
+                    else
+                    {
+                        <img id="profilePicture" style="width:350px;height:350px; object-fit:cover" src="~/images/default-user-3.png">
+                    }
+                    <br><br>
+                    <input type="file"
+                            @* accept="image/*" *@
+                            name="postedFiles"
+                            asp-for="Input.ProfilePicture"
+                            class="form-control"
+                            onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" />
+                    <span asp-validation-for="Input.ProfilePicture" class="text-danger"></span>
+                    <br><br>
+                </div>
+            </center>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+                <input name="__RequestVerificationToken" type="hidden" value="@token">
+            </div>
+        </div>
+    </div>
+</form>
+    @* <div class="col-md-6 col-md-offset-2">
+        <section>
+            <h3>Use another service to register.</h3>
+            <hr>
+                <form id="external-account" method="post" class="form-horizontal" action="/Identity/Account/ExternalLogin">
+                    <div>
+                        <p>
+                            <button type="submit" class="btn btn-primary" name="provider" value="Google" title="Log in using your Google account">Google</button>
+                        </p>
+                    </div>
+                    <input name="__RequestVerificationToken" type="hidden" value="@token">
+                </form>
+        </section>
+    </div> *@
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+  

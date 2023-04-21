@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<ul class="navbar-nav navbar-expand-xl">
+@if (SignInManager.IsSignedIn(User))
+{
+    <li class="nav-item" style="align-self: center;">
+
+    </li>
+ 
+    <li class="nav-item">
+        <a  class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+        @if (UserManager.GetUserAsync(User).Result.ProfilePicture != null)
+        {
+            <img style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="data:image/*;base64,@(Convert.ToBase64String(UserManager.GetUserAsync(User).Result.ProfilePicture))">
+        }
+        else {
+            <img style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="~/images/default-user-3.png">
+        }
+        Hello, @UserManager.GetUserAsync(User).Result.FirstName!
+        </a>
+    </li>
+    <li class="nav-item">
+        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post" >
+            <button  type="submit" class="btn btn-secondary btn-sm mx-2 my-1 text-primary">Logout</button>
+        </form>
+    </li>
+}
+else
+{
+    <li class="nav-item">
+        <div>
+            
+         <form class="form-inline" asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post" >
+            <button  type="submit" class="btn btn-secondary btn-sm mx-2 text-primary">Register</button>
+        </form>
+        </div>
+    </li>
+    <li class="nav-item">
+        <form class="form-inline" asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post" >
+            <button  type="submit" class="btn btn-secondary btn-sm mx-2 text-primary">Login</button>
+        </form>
+    </li>
+}
+</ul>

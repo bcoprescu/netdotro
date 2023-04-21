@@ -1,0 +1,41 @@
+﻿@page
+@model netdotro.Admin.DeleteUser.DeleteUserModel
+@{
+     Layout = "_AdminLayout";
+}
+<h3>Delete User @Model.UserName</h3>
+<br>
+<partial name="_StatusMessage" for="StatusMessage" />
+<div class="col-md-6">
+    <br>
+    <div class="alert alert-warning" role="alert">
+        <p>
+            @if (@Model.ProfilePicture != null)
+            {
+                <img style="width:40px;height:40px; object-fit:cover"
+                    src="data:image/*;base64,@(Convert.ToBase64String(@Model.ProfilePicture))">
+            }
+            else
+            {
+                <img style="width:40px;height:40px; object-fit:cover" src="~/images/default-user-3.png">
+            }
+            <strong>Deleting this will permanently remove <u>@Model.UserName</u>, and it cannot be recovered.</strong>
+        </p>
+    </div>
+    <div>
+        <form id="delete-user" method="post">
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true"
+                    placeholder="Please enter your password." />
+                <label asp-for="Input.Password" class="form-label"></label>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            <button class="w-100 btn btn-lg btn-danger" type="submit">Delete data and close this account</button>
+            <input type="hidden" name="id" value="@Model.UserId" />
+        </form>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

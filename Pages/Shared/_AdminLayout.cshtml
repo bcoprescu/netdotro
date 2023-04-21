@@ -1,0 +1,25 @@
+@{
+    Layout = "_Layout";
+}
+
+<div>
+    <hr>
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item"><a class="nav-link" id="users" aria-current="page" href="/Admin/Users">Users</a></li>
+                <li class="nav-item"><a class="nav-link" id="roles" href="/Admin/Roles">Roles</a></li>
+            </ul>
+
+        </div>
+        <div class="col-md-9">
+             @RenderBody()
+           
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}
+

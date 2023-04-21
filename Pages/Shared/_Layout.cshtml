@@ -5,9 +5,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - netdotro</title>
+     <link runat="server" rel="shortcut icon" href="~/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css//bootstrap-icons.css">
-    <link rel="stylesheet" href="~/css/bootstrap.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/bootstrap-ltr.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     @* <link rel="stylesheet" href="~/netdotro.styles.css" asp-append-version="true" /> *@
 </head>
@@ -16,7 +17,7 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
-                <a href="/"><img src="~/images/logo4.png" alt="Logo" style="width: 100px; height: auto;" /></a>
+                <a href="/"><img src="~/images/logo4.png" alt="Logo" style="width: 70px; height: auto; border-radius:60px" /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03"
                     aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -30,14 +31,17 @@
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-page="/Games/Games">Games</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-page="/Privacy">Privacy</a>
+                            </li>
+                            @if(User.IsInRole("Admin")) {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-page="/Admin/Users">Admin</a>
+                            </li>
+                            }
                         </ul>
                     </ul>
-                    <ul class="navbar-nav ms-md-auto">
-                        <li class="nav-item">
-                            <a target="_blank" rel="noopener" class="nav-link" href="https://github.com/bcoprescu">
-                            <i class="bi bi-github"></i> GitHub</a>
-                        </li>
-                    </ul>
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
@@ -62,10 +66,14 @@
                 <li><a href="https://github.com/bcoprescu"><i class="bi bi-github"></i>GitHub</a></li>
                 @* <li><a href="/">Donate</a></li> *@
             </ul>
-            <p>Made by <a href="/">Bogdan Oprescu</a>.</p>
-            <p>Code released under the <a href="https://github.com/bcoprescu/netdotro/LICENSE">MIT License</a>.</p>
-            <p>Icons from <a href="https://icons.getbootstrap.com/" rel="nofollow">Bootstrap Icons</a>. Web theme
-                from <a href="https://bootswatch.com/lumen/" rel="nofollow">Bootswatch</a>.</p>
+            <p>Made by <a href="https://www.linkedin.com/in/bogdan-oprescu-2358a46b/">
+            <i class="bi bi-linkedin"></i> Bogdan Oprescu</a>.</p>
+            <p>Code released under the <a href="https://github.com/bcoprescu/netdotro/blob/master/LINCENSE">
+            <i class="bi bi-c-circle"></i> MIT License</a>.</p>
+            <p>Icons from <a href="https://icons.getbootstrap.com/" rel="nofollow">
+                <i class="bi bi-bootstrap-fill bs-indigo"></i> Bootstrap Icons</a>. Web theme
+                from <a href="https://bootswatch.com/lumen/" rel="nofollow">
+                <img class="d-inline-block mx-2 bg-dark" src="~/images/bootstrap.png" alt="" width="20" height="18">Bootswatch</a>.</p>
         </div>
         </div>
     </footer>

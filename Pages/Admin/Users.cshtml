@@ -1,0 +1,115 @@
+﻿@page
+@model netdotro.UsersModel.UsersModel
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Roles";
+}
+
+<h3>Users List</h3>
+<partial name="_StatusMessage" for="StatusMessage" />
+<hr>
+<form asp-page-handler="" method="get">
+    <div class="col-md-6">
+        <div class="input-group mb-3 ">
+            <input name="searchString" placeholder="Email" class="form-control" value="@Model.SearchFilter"/>
+            <button type="submit" class="btn btn-primary" asp-page-handler="">Search</button>
+        </div>
+    </div>
+</form>
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <td></td>
+            <td>Name
+                @if (@Model.OrderBy == @UsersModel.UsersModel.ORDER_NAME_ASC) {
+                    <a asp-page-handler="" asp-route-orderBy=@UsersModel.UsersModel.ORDER_NAME_DSC asp-route-searchString=@Model.SearchFilter>
+                    <i class="bi bi-sort-alpha-down"></i>
+                    </a>
+                }
+                else {
+                    <a asp-page-handler="" asp-route-orderBy=@UsersModel.UsersModel.ORDER_NAME_ASC asp-route-searchString=@Model.SearchFilter>
+                    <i class="bi bi-sort-alpha-up"></i>
+                    </a>
+                }
+                </td>
+            <td>Email
+                @if (@Model.OrderBy == @UsersModel.UsersModel.ORDER_MAIL_ASC) {
+                    <a asp-page-handler="" asp-route-orderBy=@UsersModel.UsersModel.ORDER_MAIL_DSC asp-route-searchString=@Model.SearchFilter>
+                    <i class="bi bi-sort-alpha-down"></i>
+                    </a>
+                }
+                else {
+                    <a asp-page-handler="" asp-route-orderBy=@UsersModel.UsersModel.ORDER_MAIL_ASC asp-route-searchString=@Model.SearchFilter>
+                    <i class="bi bi-sort-alpha-up"></i>
+                    </a>
+                }
+            </td>
+            <td>Phone Number</td>
+            <td>Roles</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.users)
+        {
+            <tr>
+                <td>
+                @if (user.ProfilePicture != null)
+                {
+                    <img style="width:30px;height:30px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(user.ProfilePicture))">
+                }
+                else {
+                    <img style="width:30px;height:30px; object-fit:cover" src="~/images/default-user-3.png">
+                }</td>
+                <td>@user.FirstName @user.LastName</td>
+                <td>@user.Email</td>
+                <td>@user.PhoneNumber</td>
+                <td>@string.Join(",", Model.GetUserRolesAsync(user).Result.ToArray())</td>
+                <td>
+                  <a href="EditUser?id=@user.Id">Edit</a> |
+                  <a href="DetailsUser?id=@user.Id">Details</a> |
+                  <a href="DeleteUser?id=@user.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+  <ul class="pagination">
+    @if (@Model.PageIndex > 1) {
+        <li class="page-item">
+            <a class="page-link" asp-route-pageIndex=@(@Model.PageIndex - 1) asp-route-orderBy=@Model.OrderBy>&laquo;</a>
+        </li>
+    }
+    else {
+        <li class="page-item disabled">
+            <a class="page-link" asp-route-pageIndex=@(@Model.PageIndex - 1) asp-route-orderBy=@Model.OrderBy>&laquo;</a>
+        </li>
+    }
+    @for (var i = @Math.Max(@Model.PageIndex - 2, 1); i <= Math.Min(@Model.PageIndex + 2, @Model.TotalPages); i++) {
+        @if (i == @Model.PageIndex) {
+                <li class="page-item active disabled">
+                    <a class="page-link" asp-route-pageIndex=@i asp-route-orderBy=@Model.OrderBy>@i</a>
+                </li>
+        }
+        else {
+                <li class="page-item">
+                    <a class="page-link" asp-route-pageIndex=@i asp-route-orderBy=@Model.OrderBy>@i</a>
+                </li>
+        }
+    }
+    @if (@Model.PageIndex < @Model.TotalPages) {
+        <li class="page-item">
+            <a class="page-link" asp-route-pageIndex=@(@Model.PageIndex + 1) asp-route-orderBy=@Model.OrderBy>&raquo;</a>
+        </li>
+    }
+    else {
+        <li class="page-item disabled">
+            <a class="page-link" asp-route-pageIndex=@(@Model.PageIndex + 1) asp-route-orderBy=@Model.OrderBy>&raquo;</a>
+        </li>
+    }
+    </ul>
+</div>
